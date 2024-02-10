@@ -1,0 +1,207 @@
+openapi: 3.0.3
+info:
+  title: Python Paved Road REST APIs
+  description: This API list provides operations for interacting with Python Paved
+    Road libraries and services.
+  version: 1.0.11
+servers:
+- url: http://127.0.0.1
+tags:
+- name: template
+  description: API for Python Paved Road template
+- name: library
+  description: API for Python Paved Road library
+- name: service
+  description: API for Python Paved Road service
+paths:
+  /template:
+    post:
+      tags:
+      - template
+      summary: Create a new template
+      description: Create a new template
+      operationId: post_template
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Template uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message for a bad request
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message for an internal server error
+      x-openapi-router-controller: swagger_server.controllers.template_controller
+  /library:
+    post:
+      tags:
+      - library
+      summary: Create a new library
+      description: Create a new library
+      operationId: post_library
+      requestBody:
+        description: Create a new library
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                library_name:
+                  type: string
+                  example: my_library
+                library_install_requires:
+                  type: string
+                  example: "requests, pytest"
+                library_version:
+                  type: string
+                  example: "0.1.0"
+                library_description:
+                  type: string
+                  example: "This is my library"
+                library_author:
+                  type: string
+                  example: "shekhar.kanodia"
+                template_name:
+                  type: string
+                  example: my_template
+                template_parameters:
+                  type: object
+                  properties:
+                    param_1:
+                      type: string
+                      example: param_1
+                    param_2:
+                      type: string
+                      example: param_2
+        required: true
+      responses:
+        '200':
+          description: Library creation request placed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message for a bad request
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message for an internal server error
+      x-openapi-router-controller: swagger_server.controllers.library_controller
+  /service:
+    post:
+      tags:
+      - service
+      summary: Create a new service
+      description: Create a new service
+      operationId: post_service
+      requestBody:
+        description: Create a new service
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_name:
+                  type: string
+                  example: my_service
+                service_port:
+                  type: string
+                  example: "8080"
+                requirements:
+                  type: string
+                  example: "numpy==0.1, pandas"
+                template_name:
+                  type: string
+                  example: my_template
+                template_parameters:
+                  type: object
+                  properties:
+                    param_1:
+                      type: string
+                      example: param_1
+                    param_2:
+                      type: string
+                      example: param_2
+        required: true
+      responses:
+        '200':
+          description: Service creation request placed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message for a bad request
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message for an internal server error
+      x-openapi-router-controller: swagger_server.controllers.service_controller

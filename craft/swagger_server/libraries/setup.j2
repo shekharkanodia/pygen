@@ -1,0 +1,22 @@
+from setuptools import find_packages, setup
+
+setup(
+    name='{{ project_name }}',
+    packages=find_packages(include=['{{ package_name }}']),
+    install_requires=[
+        {%- for dependency in install_requires -%} '{{ dependency }}', {%- endfor %}
+    ],
+    setup_requires=[
+        'wheel',
+        'setuptools',
+        'twine',
+        'pytest-runner',
+    ],
+    tests_require=[
+        {%- for test_dependency in tests_require -%} '{{ test_dependency }}', {%- endfor %}
+    ],
+    test_suite='tests',
+    version='{{ version }}',
+    description='{{ description }}',
+    author='{{ author }}',
+)
